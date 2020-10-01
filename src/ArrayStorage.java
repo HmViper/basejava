@@ -8,9 +8,15 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
+
     }
 
     Resume get(String uuid) {
+        for (Resume resume : storage) {
+            if (uuid.equals(resume.uuid)) {
+                return resume;
+            }
+        }
         return null;
     }
 
