@@ -16,14 +16,20 @@ public class ArrayStorage {
         for(int i = 0; i < storage.length; i++) {
             if(storage[i] == null) {
                 storage[i] = r;
+                break;
             }
         }
     }
 
     Resume get(String uuid) {
-        for (Resume resume : storage) {
-            if (uuid.equals(resume.uuid)) {
-                return resume;
+        for (int i = 0; i < storage.length; i++) {
+            if(storage[i] != null) {
+                if (uuid.equals(storage[i].uuid)) {
+                    return storage[i];
+                }
+            }
+            else {
+                return null;
             }
         }
         return null;
@@ -32,13 +38,12 @@ public class ArrayStorage {
     void delete(String uuid) {
         for (int i = 0; i < storage.length; i++) {
             if (uuid.equals(storage[i].uuid)) {
-                int k = i;
-                storage[i] = null;
-
-
-                while(storage[k + 1] != null && k + 1 < storage.length) {
-                    storage[k] = storage[k + 1];
-                    k++;
+                  for(int k = i; k < storage.length; k++) {
+                      if(k == storage.length-1) {
+                          storage[k] = null;
+                      } else {
+                          storage[k] = storage[k+1];
+                      }
                 }
                 i = storage.length;
             }
@@ -48,6 +53,15 @@ public class ArrayStorage {
          * @return array, contains only Resumes in storage (without null)
          */
         Resume[] getAll () {
+            if(storage.length > 0) {
+                for (int i = 0; i < storage.length; i++) {
+                    if (storage[i] == null) {
+                        Resume[] realStorage = new Resume[i];
+                        System.arraycopy(storage, 0, realStorage, 0, i);
+                        return realStorage;
+                    }
+                }
+            }
             return new Resume[0];
         }
 
@@ -56,6 +70,6 @@ public class ArrayStorage {
             while(storage[i]!=null) {
                 i++;
             }
-            return i+1;
+            return i;
         }
 }
