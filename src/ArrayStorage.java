@@ -28,9 +28,6 @@ public class ArrayStorage {
                     return storage[i];
                 }
             }
-            else {
-                return null;
-            }
         }
         return null;
     }
