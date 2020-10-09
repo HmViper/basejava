@@ -1,42 +1,32 @@
+import java.util.Arrays;
+
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10_000];
     private int size;
 
-    int searchResume(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid == uuid) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     void clear() {
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
-        size = 0;
+        Arrays.fill(storage, null);
     }
 
-    void update(Resume r) {
-        int index;
-        if ((index = searchResume(r.uuid)) > -1) {
-            storage[index] = r;
+    void update(Resume resume) {
+        int index = searchResume(resume.uuid);
+        if (index > -1) {
+            storage[index] = resume;
         } else {
-            System.out.println("ERROR: Resume is not present");
+            System.out.println("ERROR: Resume " + resume + " is not present");
         }
     }
 
-    void save(Resume r) {
-        if (searchResume(r.uuid) > -1) {
-            System.out.println("ERROR: Resume is already saved");
+    void save(Resume resume) {
+        if (searchResume(resume.uuid) > -1) {
+            System.out.println("ERROR: Resume " + resume + " is already exist");
         } else if (size == storage.length) {
-            System.out.println("ERROR: Storage overload");
+            System.out.println("ERROR: Storage overflow");
         } else {
-            storage[size++] = r;
+            storage[size++] = resume;
         }
     }
 
@@ -45,8 +35,8 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        int index;
-        if ((index = searchResume(uuid)) > -1) {
+        int index = searchResume(uuid);
+        if (index > -1) {
             storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
@@ -67,5 +57,14 @@ public class ArrayStorage {
 
     int size() {
         return size;
+    }
+
+    private int searchResume(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
