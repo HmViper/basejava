@@ -1,3 +1,4 @@
+package topjava.basejava.storage;
 /**
  * Initial resume class
  */

@@ -1,3 +1,4 @@
+package topjava.basejava.storage;
 import java.util.Arrays;
 
 /**
@@ -9,6 +10,7 @@ public class ArrayStorage {
 
     void clear() {
         Arrays.fill(storage, null);
+        size = 0;
     }
 
     void update(Resume resume) {
@@ -31,7 +33,13 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        return searchResume(uuid) > -1 ? storage[searchResume(uuid)] : null;
+        int index = searchResume(uuid);
+        if(index > -1) {
+            return storage[index];
+        } else {
+            System.out.println("ERROR: Resume with uuid " + uuid + " not present");
+        }
+        return null;
     }
 
     void delete(String uuid) {

@@ -1,3 +1,4 @@
+package topjava.basejava.storage;
 /**
  * Test for your ArrayStorage implementation
  */
