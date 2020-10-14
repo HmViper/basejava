@@ -11,7 +11,7 @@ public class ArrayStorage {
     private int size;
 
     public void clear() {
-        Arrays.fill(storage, null);
+        Arrays.fill(storage, 0, size, null );
         size = 0;
     }
 
@@ -50,7 +50,7 @@ public class ArrayStorage {
             storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("ERROR: Resume in not present");
+            System.out.println("ERROR: Resume with uuid " + uuid + " in not present");
         }
     }
 
