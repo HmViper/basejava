@@ -33,14 +33,6 @@ public class ArrayStorage extends AbstractArrayStorage {
         }
     }
 
-    public Resume get(String uuid) {
-        int index = searchResume(uuid);
-        if (index > -1) {
-            return storage[index];
-        }
-        System.out.println("ERROR: Resume with uuid " + uuid + " not present");
-        return null;
-    }
 
     public void delete(String uuid) {
         int index = searchResume(uuid);
@@ -61,7 +53,7 @@ public class ArrayStorage extends AbstractArrayStorage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    private int searchResume(String uuid) {
+    protected int searchResume(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
