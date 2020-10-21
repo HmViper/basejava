@@ -9,56 +9,24 @@ import java.util.Arrays;
  */
 public class ArrayStorage extends AbstractArrayStorage {
 
-    public void clear() {
-        Arrays.fill(storage, 0, size, null);
-        size = 0;
+    protected void deleteElement(int index) {
+        storage[index] = storage[size - 1];
+        storage[size - 1] = null;
+        size--;
     }
 
-    public void update(Resume resume) {
-        int index = searchResume(resume.getUuid());
-        if (index > -1) {
-            storage[index] = resume;
-        } else {
-            System.out.println("ERROR: Resume " + resume + " is not present");
-        }
-    }
-
-    public void save(Resume resume) {
-        if (searchResume(resume.getUuid()) > -1) {
-            System.out.println("ERROR: Resume " + resume + " is already exist");
-        } else if (size >= STORAGE_LIMIT) {
-            System.out.println("Storage overflow");
-        } else {
-            storage[size++] = resume;
-        }
-    }
-
-
-    public void delete(String uuid) {
-        int index = searchResume(uuid);
-        if (index > -1) {
-            storage[index] = storage[size - 1];
-            storage[size - 1] = null;
-            size--;
-        } else {
-            System.out.println("ERROR: Resume with uuid " + uuid + " in not present");
-        }
-    }
-
-
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
-    }
-
-    protected int searchResume(String uuid) {
+    protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
             }
         }
         return -1;
+    }
+
+    @Override
+    protected void insertElement(Resume resume, int index) {
+        storage[size] = resume;
+
     }
 }
